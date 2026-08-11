@@ -2,6 +2,7 @@ package cc.claireshots.exampleplugin;
 
 import cc.claireshots.exampleplugin.commands.command.GiveItemCommand;
 import cc.claireshots.exampleplugin.items.helper.ItemRegister;
+import cc.claireshots.exampleplugin.items.helper.ItemUpdateHelper;
 import cc.claireshots.exampleplugin.items.item.CustomItem;
 import cc.claireshots.exampleplugin.items.item.LightningStick;
 import io.papermc.paper.registry.keys.DataComponentTypeKeys;
@@ -37,6 +38,7 @@ public final class Exampleplugin extends JavaPlugin {
     }
 
     private void registerItems() {
+        ItemUpdateHelper.enableScheduledUpdater();
         ItemRegister.registerItem(new LightningStick());
     }
 }

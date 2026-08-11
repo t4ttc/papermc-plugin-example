@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class LightningStickListener implements Listener {
     @EventHandler
     private void onRightClick(PlayerInteractEvent event) {
-        if (ItemHelper.isHoldingCustomItem(event.getPlayer(), new LightningStick().Id())) {
+        if (ItemHelper.isHoldingCustomItem(event.getPlayer(), new LightningStick().ID())) {
             Location strikeLocation = event.getPlayer().getTargetBlock(null, 10)
                     .getLocation();
             event.getPlayer().getWorld().strikeLightning(strikeLocation);

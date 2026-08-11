@@ -22,56 +22,79 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public interface CustomItem {
-    // These MUST be defined by the user!
-    String Id();
-    Material Material();
-    String Name();
+public abstract class CustomItem {
+    private final String itemID;
+    private final String itemName;
+    private final int version;
+    private final Material material;
+
+
+    public CustomItem(String itemID, String itemName, Material material, int version) {
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.version = version;
+        this.material = material;
+    }
 
     // Optional parameters
-    default List<String> Lore() {
+    public List<String> Lore() {
         return new ArrayList<>();
     }
 
-    default Listener itemListener() {
+    public Listener itemListener() {
         return new EmptyListener();
     }
 
     // Methods to get items
-    default ItemStack buildItem() {
-        ItemStack itemStack = new ItemStack(Material());
+    public final ItemStack buildItem() {
+        ItemStack itemStack = new ItemStack(this.material);
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        itemMeta.displayName(Msg.component(Name())); // Set item name using componentizer
+        itemMeta.displayName(Msg.component(this.itemName)); // Set item name using componentizer
         itemMeta.lore(convertLoreToComponents()); // Set item lore using componentizer
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
-        container.set(ItemHelper.getCustomItemKey(), PersistentDataType.STRING, Id()); // Attach item ID to item
+        container.set(ItemHelper.getCustomItemKey(), PersistentDataType.STRING, this.itemID); // Attach item ID to item
+        container.set(ItemHelper.getItemVersionKey(), PersistentDataType.INTEGER, this.version);
 
         itemStack.setItemMeta(itemMeta);
 
-        registerListener(); // Register item listeners
-
         return itemStack;
     }
-    default void give(Player player) {
+    public void give(Player player) {
         player.getInventory().addItem(buildItem());
     }
 
-    default boolean listenerEnabled() {
+    private boolean listenerEnabled() {
         return ListenerRegisterHelper.isRegistered(itemListener());
     }
 
-    default void registerListener() {
+    public final void registerListener() {
         if (!listenerEnabled()) {
             ListenerRegisterHelper.register(itemListener());
         }
     }
 
-    default List<Component> convertLoreToComponents() {
+    private List<Component> convertLoreToComponents() {
         List<Component> componentizedLore = new ArrayList<>();
         for (String line : Lore()) {
             componentizedLore.add(Msg.component(line));
         }
         return componentizedLore;
+    }
+
+    public final String ID() {
+        return itemID;
+    }
+
+    public final String Name() {
+        return itemName;
+    }
+
+    public final int Version() {
+        return version;
+    }
+
+    public final Material Material() {
+        return material;
     }
 }

@@ -9,10 +9,15 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class ItemHelper {
-    private static NamespacedKey CustomItemKey = new NamespacedKey(Exampleplugin.getInstance(), "customitems");
+    private static NamespacedKey CustomItemKey = new NamespacedKey(Exampleplugin.getInstance(), "custom_item");
+    private static NamespacedKey ItemVersionKey = new NamespacedKey(Exampleplugin.getInstance(), "custom_item_version");
 
     public static NamespacedKey getCustomItemKey() {
         return CustomItemKey;
+    }
+
+    public static NamespacedKey getItemVersionKey() {
+        return ItemVersionKey;
     }
 
     public static boolean isHoldingCustomItem(Player player, String ID) {

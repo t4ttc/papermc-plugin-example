@@ -9,7 +9,7 @@ import java.util.Map;
 public class ItemRegister {
     private static final Map<String, CustomItem> items = new HashMap<>();
     public static void registerItem(CustomItem item) {
-        items.put(item.Id(), item);
+        items.put(item.ID(), item);
         item.registerListener();
     }
     public static CustomItem getItem(String ID) {
