@@ -1,3 +1,13 @@
 /run
 /.gradle
 /.idea
+/build
+
+*.class
+*.jar
+
+*.iml
+out/
+
+.DS_Store
+Thumbs.db
