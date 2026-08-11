@@ -1,0 +1,10 @@
+name: exampleplugin
+version: '${version}'
+
+main: cc.claireshots.exampleplugin.Exampleplugin
+api-version: '26.2'
+load: POSTWORLD
+commands:
+  givecustom:
+    description: "Give a custom item to a player"
+    usage: /<command> <player> <item_id>
