@@ -55,6 +55,7 @@ public abstract class CustomItem {
         PersistentDataContainer container = itemMeta.getPersistentDataContainer();
         container.set(ItemHelper.getCustomItemKey(), PersistentDataType.STRING, this.itemID); // Attach item ID to item
         container.set(ItemHelper.getItemVersionKey(), PersistentDataType.INTEGER, this.version);
+        itemMeta.setEnchantmentGlintOverride(isEnchanted());
 
         itemStack.setItemMeta(itemMeta);
 
@@ -97,4 +98,5 @@ public abstract class CustomItem {
     public final Material Material() {
         return material;
     }
+    public boolean isEnchanted() { return false; }
 }
